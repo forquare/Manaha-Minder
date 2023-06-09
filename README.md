@@ -1,1 +1,1 @@
-# Manaha Minecraft Manager
+# Manaha Minder for Minecraft
