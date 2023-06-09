@@ -1,0 +1,26 @@
+# SystemD service file for Manaha Minder
+
+[Unit]
+Description=Runs the Manaha Minder for Minecraft servers
+After=network.target remote-fs.target
+Wants=network-online.target
+Before=multi-user.target graphical.target
+
+[Service]
+Restart=always
+Type=simple
+ExecStart=/usr/local/bin/manaha_minder
+WorkingDirectory=~
+User=manaha-minecrafter
+Group=manaha-minecrafter
+
+[Install]
+WantedBy=multi-user.target
+
+
+# Installing
+# sudo cp -v manaha-minder.service /etc/systemd/system    #copy service file
+# sudo systemctl enable manaha-minder.service             #enable service
+# sudo systemctl start manaha-minder.service              #start service
+# sudo systemctl status manaha-minder.service             #check status
+# sudo journalctl -f -u manaha-minder.service             #inspect the logs
