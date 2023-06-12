@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/go-co-op/gocron v1.28.2
-	github.com/gookit/event v1.0.6
+	github.com/gookit/event v1.1.1
 	github.com/nxadm/tail v1.4.8
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.15.0
