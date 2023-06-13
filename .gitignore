@@ -16,9 +16,8 @@
 # vendor/
 
 # Custom
-foo.txt
 build.sh
-Notes.md
 mminder.yaml
 
+# Binary
 manaha_minder
