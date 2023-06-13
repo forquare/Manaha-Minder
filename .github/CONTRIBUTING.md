@@ -20,13 +20,14 @@ When deciding whether a Pull Request will be merged, the following is considered
 
   For example:
   
-  > Fix search
+  > Can't get operators
   
   Doesn't describe what is being fixed or what was broken, whereas:
   
-  > Fix search to actually use POSIX regex when selected
+  > Fix "op me" command to give operator status to the player who requested it.
   > 
-  > After a recent update the `-R` flag for search stopped using POSIX regex and instead was using the default Go regex, this commit reverts it to using POSIX regex as per the arguments help description.
+  > After a recent update operators were no longer being given to players who requested it. This was because the operator list in the config was being overwritten with an empty list.]
+  > This commit removed the line that was overwriting the list.
   
   Describes the problem that has been found, and the Pull Request shows the action taken to solve it.
 
