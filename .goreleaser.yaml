@@ -1,0 +1,58 @@
+project_name: manaha-minder
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+builds:
+  - binary: manaha_minder
+    ldflags: -s -w -X main.Version={{ .Version }}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+archives:
+  - name_template: >-
+      {{ .ProjectName }}-
+      {{- .Version }}-
+      {{- if eq .Os "linux" }}Linux
+      {{- else }}{{ .Os }}{{ end }}-
+      {{- if eq .Arch "amd64" }}64bit
+      {{- else if eq .Arch "386" }}32bit
+      {{- else if eq .Arch "arm" }}ARM
+      {{- else if eq .Arch "arm64" }}ARM64
+      {{- end }}
+    format: txz
+    files:
+      - LICENSE*
+    wrap_in_directory: false
+    rlcp: true
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-snapshot"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+gomod:
+  proxy: false
+nfpms:
+  - package_name: manaha_minder
+    description: Manaha-minder is a tool to aid managing Minecraft servers.
+    license: MIT
+    homepage: github.com/Manaha-mender/manaha-minder
+    maintainer: Ben Lavery-Griffiths <ben@lavery-griffiths.com>
+    formats:
+      - deb
+    bindir: /usr/local/bin
+    contents:
+      - src: manaha-minder.service
+        dst: /etc/systemd/system/manaha-minder.service

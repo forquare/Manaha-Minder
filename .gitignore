@@ -20,4 +20,5 @@ build.sh
 mminder.yaml
 
 # Binary
+dist/
 manaha_minder
