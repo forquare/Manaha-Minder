@@ -10,8 +10,13 @@ import (
 	"manaha_minder/utils"
 )
 
+var Version string
+
 func main() {
 	done := make(chan bool)
+
+	// Print version
+	logger.Info("Manaha Minder " + Version)
 
 	// Set debug until we parse config
 	logger.SetLevel(logger.DebugLevel)
