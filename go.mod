@@ -1,4 +1,4 @@
-module manaha_minder
+module github.com/forquare/manaha-minder
 
 go 1.20
 

@@ -3,8 +3,8 @@ package actions
 import (
 	"github.com/gookit/event"
 	logger "github.com/sirupsen/logrus"
-	"manaha_minder/config"
-	"manaha_minder/utils"
+	"github.com/forquare/manaha-minder/config"
+	"github.com/forquare/manaha-minder/utils"
 	"regexp"
 	"strings"
 	"time"

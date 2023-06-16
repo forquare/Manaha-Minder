@@ -2,12 +2,12 @@
 package main
 
 import (
+	"github.com/forquare/manaha-minder/actions"
+	"github.com/forquare/manaha-minder/activity"
+	"github.com/forquare/manaha-minder/config"
+	"github.com/forquare/manaha-minder/serverAdmin"
+	"github.com/forquare/manaha-minder/utils"
 	logger "github.com/sirupsen/logrus"
-	"manaha_minder/actions"
-	"manaha_minder/activity"
-	"manaha_minder/config"
-	"manaha_minder/serverAdmin"
-	"manaha_minder/utils"
 )
 
 var Version string
