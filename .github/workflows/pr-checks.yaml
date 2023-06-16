@@ -1,4 +1,4 @@
-name: golangci-lint
+name: Check PR
 on:
   pull_request:
 
@@ -7,8 +7,8 @@ permissions:
   pull-requests: read
 
 jobs:
-  golangci:
-    name: lint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

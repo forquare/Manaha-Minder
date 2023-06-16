@@ -1,4 +1,4 @@
-name: "Lint PR"
+name: "Lint PR Title"
 
 on:
   pull_request_target:
@@ -15,7 +15,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  main:
+  valudate_pr_title:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
