@@ -3,7 +3,7 @@ package serverAdmin
 import (
 	"github.com/gookit/event"
 	logger "github.com/sirupsen/logrus"
-	"manaha_minder/utils"
+	"github.com/forquare/manaha-minder/utils"
 	"net"
 	"strings"
 	"time"
