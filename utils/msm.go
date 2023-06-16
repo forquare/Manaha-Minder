@@ -2,7 +2,7 @@ package utils
 
 import (
 	logger "github.com/sirupsen/logrus"
-	"manaha_minder/config"
+	"github.com/forquare/manaha-minder/config"
 	"os/exec"
 )
 

@@ -3,7 +3,7 @@ package serverAdmin
 import (
 	"github.com/go-co-op/gocron"
 	logger "github.com/sirupsen/logrus"
-	"manaha_minder/utils"
+	"github.com/forquare/manaha-minder/utils"
 	"time"
 )
 

@@ -5,7 +5,7 @@ import (
 	logger "github.com/sirupsen/logrus"
 	"io"
 	"io/fs"
-	"manaha_minder/config"
+	"github.com/forquare/manaha-minder/config"
 	"os"
 	"path/filepath"
 )
