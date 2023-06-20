@@ -15,21 +15,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  valudate_pr_title:
+  validate_pr_title:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v5.2.0
         id: lint_pr_title
         with:
-          types: |
-            build
-            chore
-            ci
-            docs
-            feat
-            fix
-            revert
           scopes: |
             #\d+
           requireScope: false
@@ -44,21 +36,23 @@ jobs:
           header: pr-title-lint-error
           message: |
             Thank you for opening this pull request!
-            
+
             We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) and it looks like your proposed title needs to be adjusted.
-            
+
             Example:
-            
+
             ```
-            ci(#8): Add release process
+            build(#8): Add release process
             ^  ^           ^
             |  |           |__ Subject
             |  |_______ Scope optional
             |____________ Type
             ```
 
+            Please find additional details [on the wiki](https://github.com/forquare/Manaha-Minder/wiki/Releasing#pr-titles) 
+
             Details:
-            
+
             ```
             ${{ steps.lint_pr_title.outputs.error_message }}
             ```

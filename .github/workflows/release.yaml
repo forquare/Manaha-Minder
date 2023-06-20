@@ -5,8 +5,29 @@ on:
     types: [closed]
 
 jobs:
+  check_files:
+    runs-on: ubuntu-latest
+    outputs:
+      skip_release: ${{ steps.check.outputs.skip_release }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: 'Get changed files'
+        id: 'get_files'
+        uses: masesgroup/retrieve-changed-files@v2
+      - name: 'Checking files'
+        id: 'check'
+        run: |
+          echo "Skipping release - default"
+          echo "skip_release=true" >> $GITHUB_OUTPUT
+
+          if echo ${{ steps.get_files.outputs.all }} | tr ' ' '\n' | grep -Ev $(grep -Ev '^#|^$' .github/files_that_skip_release | tr '\n' '|' | sed 's/|$//'); then
+            echo "Not skipping release"
+            echo "skip_release=false" >> $GITHUB_OUTPUT
+          fi
+
   tag:
-    if: github.ref == 'main' && github.event.pull_request.merged == true
+    if: github.ref == 'main' && github.event.pull_request.merged == true && needs.check_files.outputs.skip_release == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +42,7 @@ jobs:
 
   build_and_release:
     needs: tag
-    if: github.ref == 'main' && github.event.pull_request.merged == true
+    if: github.ref == 'main' && github.event.pull_request.merged == true && needs.check_files.outputs.skip_release == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
