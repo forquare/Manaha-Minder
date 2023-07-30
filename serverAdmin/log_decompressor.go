@@ -2,18 +2,23 @@ package serverAdmin
 
 import (
 	"compress/gzip"
+	"github.com/forquare/manaha-minder/config"
 	logger "github.com/sirupsen/logrus"
 	"io"
 	"io/fs"
-	"github.com/forquare/manaha-minder/config"
 	"os"
 	"path/filepath"
+	"strings"
+)
+
+var (
+	root string
 )
 
 func LogDecompressor() {
 	logger.Debug("Starting Log Decompressor")
 	config := config.GetConfig()
-	root := config.MinecraftServer.LogDir
+	root = config.MinecraftServer.LogDir
 	fileSystem := os.DirFS(root)
 
 	fs.WalkDir(fileSystem, ".", walk)
@@ -24,7 +29,7 @@ func walk(p string, d fs.DirEntry, err error) error {
 		return err
 	}
 	if !d.IsDir() && filepath.Ext(d.Name()) == ".gz" {
-		decompress(filepath.Join(p, d.Name()))
+		decompress(filepath.Join(root, p))
 	}
 	return nil
 }
@@ -34,6 +39,7 @@ func decompress(f string) {
 	if err != nil {
 		logger.Error(err)
 	}
+
 	defer gzippedFile.Close()
 
 	// Create a new gzip reader
@@ -41,15 +47,17 @@ func decompress(f string) {
 	defer gzipReader.Close()
 
 	// Create a new file to hold the uncompressed data
-	// TODO Fix this
-	uncompressedFile, err := os.Create("example.txt")
+	dirname := filepath.Dir(f)
+	basename := filepath.Base(f)
+	decompressedName := strings.TrimSuffix(basename, filepath.Ext(basename))
+	decompressedFile, err := os.Create(filepath.Join(dirname, decompressedName))
 	if err != nil {
 		logger.Error(err)
 	}
-	defer uncompressedFile.Close()
+	defer decompressedFile.Close()
 
 	// Copy the contents of the gzip reader to the new file
-	_, err = io.Copy(uncompressedFile, gzipReader)
+	_, err = io.Copy(decompressedFile, gzipReader)
 	if err != nil {
 		logger.Error(err)
 	}
