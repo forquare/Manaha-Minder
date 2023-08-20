@@ -18,7 +18,10 @@ type Activity struct {
 
 func Accounting() {
 	logger.Debug("Starting activity")
-	utils.GetDatabase().AutoMigrate(&Activity{})
+	err := utils.GetDatabase().AutoMigrate(&Activity{})
+	if err != nil {
+		logger.Panicf("Error initializing activity: %v\n", err)
+	}
 	event.On("logonoffevt", event.ListenerFunc(fnAccountingHandler), event.Low)
 }
 

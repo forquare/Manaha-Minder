@@ -90,7 +90,7 @@ func GetConfig() Config {
 		pc, _, _, ok := runtime.Caller(1)
 		details := runtime.FuncForPC(pc)
 		if ok && details != nil {
-			logger.Trace("Returning config to %s", details.Name())
+			logger.Tracef("Returning config to %s", details.Name())
 		}
 	}
 

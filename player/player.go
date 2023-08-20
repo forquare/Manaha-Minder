@@ -28,7 +28,10 @@ var (
 func initPlayers() {
 	playersOnce.Do(func() {
 		logger.Debugf("Initializing players")
-		utils.GetDatabase().AutoMigrate(&Player{})
+		err := utils.GetDatabase().AutoMigrate(&Player{})
+		if err != nil {
+			logger.Panicf("Error initializing players: %v\n", err)
+		}
 	})
 }
 

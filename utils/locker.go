@@ -28,7 +28,10 @@ func InitLocker() {
 			data:  make(map[string]string),
 			mutex: new(sync.RWMutex),
 		}
-		GetDatabase().AutoMigrate(&DBLock{})
+		err := GetDatabase().AutoMigrate(&DBLock{})
+		if err != nil {
+			logger.Panicf("Error initializing locker: %v\n", err)
+		}
 	})
 }
 

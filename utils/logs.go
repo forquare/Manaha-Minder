@@ -26,7 +26,7 @@ var ignoreLogLines = []string{
 
 func LogScraper(logFile string) {
 	t, err := tail.TailFile(logFile,
-		tail.Config{Location: &tail.SeekInfo{0, io.SeekEnd}, Follow: true, ReOpen: true, MustExist: true, Logger: tail.DiscardingLogger})
+		tail.Config{Location: &tail.SeekInfo{Offset: 0, Whence: io.SeekEnd}, Follow: true, ReOpen: true, MustExist: true, Logger: tail.DiscardingLogger})
 	if err != nil {
 		logger.Fatal(err)
 	}

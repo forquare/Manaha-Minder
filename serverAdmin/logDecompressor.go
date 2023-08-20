@@ -21,7 +21,10 @@ func LogDecompressor() {
 	root = config.MinecraftServer.LogDir
 	fileSystem := os.DirFS(root)
 
-	fs.WalkDir(fileSystem, ".", walk)
+	err := fs.WalkDir(fileSystem, ".", walk)
+	if err != nil {
+		logger.Error(err)
+	}
 }
 
 func walk(p string, d fs.DirEntry, err error) error {
@@ -44,6 +47,9 @@ func decompress(f string) {
 
 	// Create a new gzip reader
 	gzipReader, err := gzip.NewReader(gzippedFile)
+	if err != nil {
+		logger.Error(err)
+	}
 	defer gzipReader.Close()
 
 	// Create a new file to hold the uncompressed data
