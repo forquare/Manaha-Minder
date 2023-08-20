@@ -3,8 +3,8 @@ package main
 
 import (
 	"github.com/forquare/manaha-minder/actions"
-	"github.com/forquare/manaha-minder/activity"
 	"github.com/forquare/manaha-minder/config"
+	"github.com/forquare/manaha-minder/player"
 	"github.com/forquare/manaha-minder/serverAdmin"
 	"github.com/forquare/manaha-minder/utils"
 	logger "github.com/sirupsen/logrus"
@@ -28,6 +28,9 @@ func main() {
 	l, _ := logger.ParseLevel(config.ManahaMinder.LogLevel)
 	logger.SetLevel(l)
 
+	// Load database
+	utils.GetDatabase()
+
 	// Init locker
 	utils.InitLocker()
 
@@ -35,17 +38,17 @@ func main() {
 	go utils.LogScraper(config.MinecraftServer.LatestLog)
 
 	// Start accounting
-	if config.Activity.LogActivity {
-		go activity.Accounting()
+	go player.Accounting()
 
-		if config.Activity.GenerateStatus {
-			// Start status setter
-			go activity.StatusSetter()
+	if config.Activity.LogActivity {
+		// Start status setter
+		if config.Activity.GenerateStatusTable {
+			go player.StatusSetter()
 		}
 
-		if config.Activity.GenerateOutput {
-			// Run calculator
-			go activity.ActivityCalulator()
+		// Run calculator
+		if config.Activity.RecalculateActivityOnStartup {
+			go player.RecalculateTimePlayed()
 		}
 	}
 

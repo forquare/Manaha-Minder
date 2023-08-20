@@ -28,7 +28,8 @@ type MinecraftServerConfig struct {
 }
 
 type ManahaMinder struct {
-	LogLevel string `mapstructure:"log_level"`
+	DatabaseFile string `mapstructure:"database"`
+	LogLevel     string `mapstructure:"log_level"`
 }
 
 type LoginConfig struct {
@@ -37,12 +38,12 @@ type LoginConfig struct {
 }
 
 type ActivityConfig struct {
-	Log            string `mapstructure:"log"`
-	LogActivity    bool   `mapstructure:"log_activity"`
-	Output         string `mapstructure:"output"`
-	GenerateOutput bool   `mapstructure:"generate_output"`
-	Status         string `mapstructure:"status"`
-	GenerateStatus bool   `mapstructure:"generate_status"`
+	LogActivity                  bool   `mapstructure:"log_activity"`
+	RecalculateActivityOnStartup bool   `mapstructure:"recalculate_activity_on_startup"`
+	TimePlayedFile               string `mapstructure:"time_played_file"`
+	GenerateTimePlayedOutput     bool   `mapstructure:"generate_time_played_output"`
+	StatusFile                   string `mapstructure:"status_file"`
+	GenerateStatusTable          bool   `mapstructure:"generate_status_table"`
 }
 
 type OperatorConfig struct {
