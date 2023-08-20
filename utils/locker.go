@@ -10,6 +10,13 @@ type Locker struct {
 	mutex *sync.RWMutex
 }
 
+type DBLock struct {
+	ID     uint   `gorm:"primaryKey"`
+	Key    string `gorm:"uniqueIndex"`
+	Value  string
+	Locked bool
+}
+
 var (
 	lockerOnce sync.Once
 	locker     Locker
@@ -21,6 +28,7 @@ func InitLocker() {
 			data:  make(map[string]string),
 			mutex: new(sync.RWMutex),
 		}
+		GetDatabase().AutoMigrate(&DBLock{})
 	})
 }
 
@@ -34,20 +42,47 @@ func LockRead(key string) (string, bool) {
 	return val, exists
 }
 
+func LockReadDB(key string) (string, bool) {
+	locker.mutex.RLock()
+	defer locker.mutex.RUnlock()
+	var dbLock DBLock
+
+	GetDatabase().Where("key = ?", key).First(&dbLock)
+	logger.Debugf("LockReadDB: %s exists: %t", key, dbLock.Locked)
+	return dbLock.Value, dbLock.Locked
+}
+
 func LockWrite(key, value string) bool {
-	created := false
 	locker.mutex.RLock()
 	defer locker.mutex.RUnlock()
 
 	_, exists := locker.data[key]
 	if exists {
 		logger.Debugf("LockWrite: %s exists: %t", key, exists)
-		return created
+		return false
 	} else {
 		logger.Debugf("Locking %s with %s", key, value)
 		locker.data[key] = value
-		created = true
-		return created
+		return true
+	}
+}
+
+func LockWriteDB(key, value string) bool {
+	locker.mutex.RLock()
+	defer locker.mutex.RUnlock()
+	var dbLock DBLock
+
+	GetDatabase().Where("key = ?", key).First(&dbLock)
+	if dbLock.Locked {
+		logger.Debugf("LockWriteDB: %s exists: %t", key, dbLock.Locked)
+		return false
+	} else {
+		logger.Debugf("Locking %s with %s", key, value)
+		dbLock.Key = key
+		dbLock.Value = value
+		dbLock.Locked = true
+		GetDatabase().Create(&dbLock)
+		return true
 	}
 }
 
@@ -56,4 +91,11 @@ func LockDelete(key string) {
 	defer locker.mutex.RUnlock()
 	logger.Debugf("Deleting lock: %s", key)
 	delete(locker.data, key)
+}
+
+func LockDeleteDB(key string) {
+	locker.mutex.RLock()
+	defer locker.mutex.RUnlock()
+	logger.Debugf("Deleting lock: %s", key)
+	GetDatabase().Where("key = ?", key).Delete(&DBLock{})
 }
