@@ -22,10 +22,10 @@ var fnCustomActionsHandler = func(e event.Event) error {
 }
 
 func customLogAction(log utils.LogLine) {
-	config := config.GetConfig()
+	configuration := config.GetConfig()
 
-	if len(config.CustomActions) > 0 {
-		for _, action := range config.CustomActions {
+	if len(configuration.CustomActions) > 0 {
+		for _, action := range configuration.CustomActions {
 			re := regexp.MustCompile(action.Pattern)
 			if re.MatchString(log.Message) {
 				logger.Debugf("Found custom action: %s", action.Name)
