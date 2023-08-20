@@ -122,6 +122,11 @@ minecraft_server:
   log_decompress: false
 
 manaha_minder:
+  # SQLite database file
+  # The database is used to store a variety of information
+  # including player activity and operator requests
+  database: /home/manaha-minecrafter/var/manaha-minder.db
+      
   # Set the logging level for manaha minder.
   # The levels are:
       # Trace - shows everything, will likely overwhelm you!
@@ -156,13 +161,11 @@ operator:
     - other_username
 
 activity:
-  # If this is set to false then all other activity operations are disabled
+  # Whether to log player activity, if false, the rest of the activity settings are ignored
   log_activity: true
   
-  # The path to the activity log file
-  # Manaha Minder will log each user logging on and off here
-  log: /home/manaha-minecrafter/var/activity.txt
-  
+  # Whether to recalculate the activity of players when the server starts
+  recalculate_activity_on_startup: true
   
   ###################################################################
   # Website helpers                                                 #
@@ -172,16 +175,16 @@ activity:
   ###################################################################
   
   # Enable calculating the amount of time each player has been online and outputting it to a file
-  generate_output: true
+  generate_time_played_output: true
   
   # Where the activity calculations should be outputted to
-  output: /var/www/html/activity.txt
+  time_played_file: /var/www/html/activity.txt
   
   # Enable generating a status page for the website
-  generate_status: true
+  generate_status_table: true
   
   # Where the status page should be outputted to
-  status: /var/www/html/players.html
+  status_file: /var/www/html/players.html
 
 # Custom actions are a YAML list of actions to perform when a command is run
 custom_actions:

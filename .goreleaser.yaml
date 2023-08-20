@@ -7,7 +7,7 @@ builds:
   - binary: manaha_minder
     ldflags: -s -w -X main.Version={{ .Version }}
     env:
-      - CGO_ENABLED=0
+      - CGO_ENABLED=1
     goos:
       - linux
     goarch:

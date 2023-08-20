@@ -1,12 +1,12 @@
-package activity
+package player
 
 import (
 	"bufio"
 	"fmt"
-	"github.com/gookit/event"
-	logger "github.com/sirupsen/logrus"
 	"github.com/forquare/manaha-minder/config"
 	"github.com/forquare/manaha-minder/utils"
+	"github.com/gookit/event"
+	logger "github.com/sirupsen/logrus"
 	"os"
 	"regexp"
 	"strings"
@@ -42,7 +42,7 @@ var fnStatusHandler = func(e event.Event) error {
 		logger.Debug(output)
 	}
 
-	f, err := os.OpenFile(config.GetConfig().Activity.Status, os.O_RDWR|os.O_CREATE, 0644)
+	f, err := os.OpenFile(config.GetConfig().Activity.StatusFile, os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		logger.Error("Could not open activity output file", player, err)
 	}
@@ -67,7 +67,7 @@ var fnStatusHandler = func(e event.Event) error {
 
 	logger.Debug("Status setter: writing to activity output file")
 
-	f, err = os.OpenFile(config.GetConfig().Activity.Status, os.O_TRUNC|os.O_WRONLY, 0644)
+	f, err = os.OpenFile(config.GetConfig().Activity.StatusFile, os.O_TRUNC|os.O_WRONLY, 0644)
 	if err != nil {
 		logger.Error("Could not open activity output file", player, err)
 	}
