@@ -67,8 +67,8 @@ func makeOperator(player player.Player, duration int) {
 }
 
 func deOp(player player.Player) {
-	utils.DmPlayer(fmt.Sprintf("10 SECONDS LEFT OF OP POWERS!"), player.Name)
-	utils.DmPlayer(fmt.Sprintf("WILL REMOVE CREATIVE MODE TOO!!"), player.Name)
+	utils.DmPlayer("10 SECONDS LEFT OF OP POWERS!", player.Name)
+	utils.DmPlayer("WILL REMOVE CREATIVE MODE TOO!!", player.Name)
 
 	time.Sleep(time.Duration(10) * time.Second)
 

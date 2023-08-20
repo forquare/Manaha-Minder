@@ -104,11 +104,11 @@ func writeTimePlayedTable() {
 	players := GetPlayersSortedByTimePlayed()
 
 	activityOut, err := os.OpenFile(config.Activity.TimePlayedFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
-	defer activityOut.Close()
 	if err != nil {
 		logger.Errorf("Error opening activity log: %v\n", err)
 		return
 	}
+	defer activityOut.Close()
 
 	for _, player := range players {
 		timePlayed := time.Duration(player.TimePlayed * int64(time.Second))
