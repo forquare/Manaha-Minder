@@ -7,11 +7,14 @@ builds:
   - binary: manaha_minder
     ldflags: -s -w -X main.Version={{ .Version }}
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - linux
     goarch:
       - amd64
+      - "386"
+      - arm
+      - arm64
 archives:
   - name_template: >-
       {{ .ProjectName }}-
