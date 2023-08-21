@@ -3,7 +3,7 @@ module github.com/forquare/manaha-minder
 go 1.20
 
 require (
-	github.com/go-co-op/gocron v1.31.1
+	github.com/go-co-op/gocron v1.32.1
 	github.com/gookit/event v1.1.1
 	github.com/nxadm/tail v1.4.8
 	github.com/sirupsen/logrus v1.9.3
@@ -15,6 +15,7 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
