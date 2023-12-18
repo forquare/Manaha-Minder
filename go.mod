@@ -3,7 +3,7 @@ module github.com/forquare/manaha-minder
 go 1.20
 
 require (
-	github.com/go-co-op/gocron v1.36.1
+	github.com/go-co-op/gocron v1.37.0
 	github.com/gookit/event v1.1.1
 	github.com/nxadm/tail v1.4.11
 	github.com/sirupsen/logrus v1.9.3
