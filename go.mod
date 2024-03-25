@@ -10,7 +10,7 @@ require (
 	github.com/spf13/viper v1.18.2
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	gorm.io/driver/sqlite v1.5.5
-	gorm.io/gorm v1.25.7
+	gorm.io/gorm v1.25.8
 )
 
 require (
