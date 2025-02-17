@@ -27,7 +27,7 @@ archives:
       {{- else if eq .Arch "arm" }}ARM
       {{- else if eq .Arch "arm64" }}ARM64
       {{- end }}
-    format: txz
+    formats: ['txz']
     files:
       - LICENSE*
     wrap_in_directory: false
@@ -49,8 +49,7 @@ nfpms:
     license: MIT
     homepage: github.com/Manaha-mender/manaha-minder
     maintainer: Ben Lavery-Griffiths <ben@lavery-griffiths.com>
-    formats:
-      - deb
+    formats: ['deb']
     bindir: /usr/local/bin
     contents:
       - src: manaha-minder.service
