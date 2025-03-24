@@ -1,6 +1,7 @@
 module github.com/forquare/manaha-minder
 
-go 1.20
+go 1.21.0
+
 toolchain go1.24.1
 
 require (
