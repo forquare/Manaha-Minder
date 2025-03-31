@@ -9,7 +9,7 @@ require (
 	github.com/gookit/event v1.1.2
 	github.com/nxadm/tail v1.4.11
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/viper v1.20.0
+	github.com/spf13/viper v1.20.1
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	gorm.io/driver/sqlite v1.5.7
 	gorm.io/gorm v1.25.12
