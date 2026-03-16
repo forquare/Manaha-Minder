@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v6
       - name: 'Get changed files'
         id: 'get_files'
-        uses: masesgroup/retrieve-changed-files@v3
+        uses: masesgroup/retrieve-changed-files@v4
       - name: 'Checking files'
         id: 'check'
         run: |
